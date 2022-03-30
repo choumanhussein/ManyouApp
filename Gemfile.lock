@@ -235,11 +235,9 @@ DEPENDENCIES
   pg (>= 0.18, < 2.0)
   puma (~> 4.1)
   rails (~> 6.0.3)
-  rexml
   rspec-rails (~> 5.0.0)
   sass-rails (>= 6)
   selenium-webdriver
-  spring
   spring-watcher-listen (~> 2.0.0)
   turbolinks (~> 5)
   tzinfo-data

@@ -1,5 +1,4 @@
 RSpec.configure do |config|
-
   config.before(:each) do |example|
      if example.metadata[:type] == :system
        driven_by :selenium, using: :headless_chrome, screen_size: [1400, 1400]  do |options|
@@ -15,6 +14,4 @@ RSpec.configure do |config|
     mocks.verify_partial_doubles = true
   end
   config.shared_context_metadata_behavior = :apply_to_host_groups
-
-
 end
