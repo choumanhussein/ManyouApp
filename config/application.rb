@@ -16,6 +16,7 @@ module ManyouApp
                    routing_specs: false,
                    controller_specs: false,
                    request_specs: false
+g.fixture_replacement :factory_bot, dir: "spec/factories"
   end
   end
 end
