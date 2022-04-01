@@ -7,7 +7,7 @@ RSpec.describe "Tasks management function", type: :system do
         visit new_task_path
         fill_in "Task Name", with: 'title test'
         fill_in "Task Details", with: 'content test'
-        click_on 'Create Task'
+        click_on 'Créer un(e) Task'
         expect(page).to have_content 'title test'
       end
     end
@@ -43,7 +43,7 @@ RSpec.describe "Tasks management function", type: :system do
   describe 'list display function' do
     context 'When transitioning to the list screen' do
       it 'already created tasks list should be displayed' do
-        expect(page).to have_content 'test2'
+        expect(page).to have_content 'content test 3'
       end
     end
     context 'When tasks are arranged in descending order of creation date and time' do
