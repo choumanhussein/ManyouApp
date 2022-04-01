@@ -1,24 +1,15 @@
-# README
+# Task
+| Column name | Data type |
+| --- | ----------- |
+| title | string |
+| content |text|
+| duedate | datetime |
+| status | string |
+| priority | integer |
+| user_id | integer |
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+#Deployment Heroku
+- [x] heroku Login
+- [x] heroku Create
+- [x] git push heroku Main
+- [x] heroku run:detached rails db:migrate 
