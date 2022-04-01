@@ -8,7 +8,7 @@
 | priority | integer |
 | user_id | integer |
 
-#Deployment Heroku
+# Deployment Heroku
 - [x] heroku Login
 - [x] heroku Create
 - [x] git push heroku Main
