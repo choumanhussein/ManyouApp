@@ -7,6 +7,7 @@
 | status | string |
 | priority | integer |
 | user_id | integer |
+step2
 
 # Deployment Heroku
 1.You Have To Login To Heroku
@@ -18,3 +19,5 @@
   - [x] git push heroku Main
 4. Finally You Have To Run Migration On Heroku
   - [x] heroku run:detached rails db:migrate 
+=======
+ master
