@@ -6,8 +6,16 @@ Bundler.require(*Rails.groups)
 
 module ManyouApp
   class Application < Rails::Application
+     step2
+    config.time_zone = 'GMT'
+    config.active_record.default_timezone = :local
+    I18n.available_locales = [:en, :fr]
+    config.i18n.default_locale = :fr
     config.load_defaults 6.0
 
+    config.load_defaults 6.0
+
+   master
     config.generators do |g|
   g.test_framework :rspec,
                    model_specs: true,
