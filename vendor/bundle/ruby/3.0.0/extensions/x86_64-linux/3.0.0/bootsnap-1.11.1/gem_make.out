@@ -1,0 +1,21 @@
+current directory: /home/vagrant/workspace/ManyouApp/vendor/bundle/ruby/3.0.0/gems/bootsnap-1.11.1/ext/bootsnap
+/home/vagrant/.rbenv/versions/3.0.1/bin/ruby -I /home/vagrant/.rbenv/versions/3.0.1/lib/ruby/3.0.0 -r ./siteconf20220403-7250-n1fij2.rb extconf.rb
+creating Makefile
+
+current directory: /home/vagrant/workspace/ManyouApp/vendor/bundle/ruby/3.0.0/gems/bootsnap-1.11.1/ext/bootsnap
+make DESTDIR\= clean
+make: Warning: File 'Makefile' has modification time 1 s in the future
+make: warning:  Clock skew detected.  Your build may be incomplete.
+
+current directory: /home/vagrant/workspace/ManyouApp/vendor/bundle/ruby/3.0.0/gems/bootsnap-1.11.1/ext/bootsnap
+make DESTDIR\=
+make: Warning: File 'Makefile' has modification time 1 s in the future
+compiling bootsnap.c
+linking shared-object bootsnap/bootsnap.so
+make: warning:  Clock skew detected.  Your build may be incomplete.
+
+current directory: /home/vagrant/workspace/ManyouApp/vendor/bundle/ruby/3.0.0/gems/bootsnap-1.11.1/ext/bootsnap
+make DESTDIR\= install
+make: Warning: File 'Makefile' has modification time 0.32 s in the future
+/usr/bin/install -c -m 0755 bootsnap.so ./.gem.20220403-7250-z04rpf/bootsnap
+make: warning:  Clock skew detected.  Your build may be incomplete.
