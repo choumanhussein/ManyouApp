@@ -8,8 +8,8 @@
 | priority | integer |
 | user_id | integer |
 
-#Deployment Heroku
+# Deployment Heroku
 - [x] heroku Login
 - [x] heroku Create
 - [x] git push heroku Main
-- [x] heroku run:detached rails db:migrate 
+- [x] heroku run:detached rails db:migrate
