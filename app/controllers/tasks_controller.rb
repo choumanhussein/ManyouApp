@@ -6,19 +6,22 @@ class TasksController < ApplicationController
 
   def edit
   end
-  
-  def index
+
+def index
+    @tasks = Task.all.order(created_at: :desc)
+  if params[:sort_priority]
+    @tasks = Task.all.order(priority: :desc)
+  else
     @tasks = Task.all.order(duedate: :desc)
   end
-
+end
   def new
     if params[:back]
       @task = Task.new(task_params)
     else
       @task = Task.new
     end
-  end
-
+end
 
 
   def create

@@ -3,20 +3,24 @@
 <table>
   <thead>
     <tr>
-      <th>Title</th>
-      <th>Content</th>
-      <th>Duedate</th>
-      <th>Status</th>
-      <th>Priority</th>
+      <th>Number</th>
+          <th>Name</th>
+          <th>Details</th>
+          <th><%= link_to 'Sort by creation', tasks_path(sort_creation: "true") %></th>
+          <th><%= link_to 'Sort by duedate', tasks_path(sort_duedate: "true") %></th>
+          <th>Status</th>
+          <th><%= link_to 'Sort by priority', tasks_path(sort_priority: "true") %></th>
       <th colspan="4"></th>
     </tr>
   </thead>
-
+ <% t=0 %>
   <tbody>
     <% @tasks.each do |task| %>
       <tr>
-        <td><%= task.title %></td>
-        <td><%= task.content %></td>
+        <td><%= t += 1 %></td>
+        <td><%= link_to task.title ,task_path(task.id) %></td>
+        <td><%= task.created_at.strftime('%D') %></td>
+        <td><%= task.duedate.strftime('%D') %></td>
         <td><%= task.duedate %></td>
         <td><%= task.status %></td>
         <td><%= task.priority %></td>
