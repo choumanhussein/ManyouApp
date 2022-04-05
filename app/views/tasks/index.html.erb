@@ -1,37 +1,54 @@
-<h1>Tasks</h1>
+<div class="container">
+  <h1><%= link_to 'Tasks' ,root_path %></h1>
+  <p id="notice"><%= notice %></p>
+  <%= form_with(model: @task, method: :get, local: true, url: tasks_path) do |form| %>
 
-<table>
-  <thead>
-    <tr>
-      <th>Number</th>
+          <div class="task_search">
+            <span>Search by</span>
+            <%= form.label :title, "title" %>
+            <%= form.text_field :title %>
+            <%= form.select :status, ['', 'pending', 'started', 'completed'], {} %>
+            <%= form.hidden_field :search, value: 'true' %>
+            <%= form.hidden_field :search, value: 'true' %>
+            <%= form.submit "search" %>
+    <% end %>
+
+    <p class=text-center><%= link_to 'New Task', new_task_path, class: "btn btn-success" %></p>
+
+    <table class="text-md-left table-striped">
+      <thead>
+        <tr>
+          <th>No.</th>
           <th>Name</th>
           <th>Details</th>
           <th><%= link_to 'Sort by creation', tasks_path(sort_creation: "true") %></th>
           <th><%= link_to 'Sort by duedate', tasks_path(sort_duedate: "true") %></th>
           <th>Status</th>
           <th><%= link_to 'Sort by priority', tasks_path(sort_priority: "true") %></th>
-      <th colspan="4"></th>
-    </tr>
-  </thead>
- <% t=0 %>
-  <tbody>
-    <% @tasks.each do |task| %>
-      <tr>
-        <td><%= t += 1 %></td>
-        <td><%= link_to task.title ,task_path(task.id) %></td>
-        <td><%= task.created_at.strftime('%D') %></td>
-        <td><%= task.duedate.strftime('%D') %></td>
-        <td><%= task.duedate %></td>
-        <td><%= task.status %></td>
-        <td><%= task.priority %></td>
-        <td><%= link_to 'Show', task %></td>
-        <td><%= link_to 'Edit', edit_task_path(task) %></td>
-        <td><%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+          <th colspan="4"></th>
+        </tr>
+      </thead>
 
-<br>
+      <% t=0 %>
 
-<%= link_to 'New Task', new_task_path %>
+      <tbody>
+        <% @tasks.each do |task| %>
+          <tr>
+            <td><%= t += 1 %></td>
+            <td><%= link_to task.title ,task_path(task.id) %></td>
+            <td><%= task.content %></td>
+            <td><%= task.created_at.strftime('%Y/%-m/%-d') %></td>
+            <td><%= task.duedate.strftime('%Y/%-m/%-d') %></td>
+            <td><%= task.status %></td>
+            <td><%= task.priority %></td>
+            <td><%= link_to 'Show', task, class: "btn btn-warning" %></td>
+            <td><%= link_to 'Edit', edit_task_path(task), class: "btn btn-info" %></td>
+            <td><%= link_to 'Delete', task, class: "btn btn-danger", method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <hr>
+  </div>
+</div>

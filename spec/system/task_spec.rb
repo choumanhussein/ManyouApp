@@ -46,7 +46,6 @@ RSpec.describe "Tasks management function", type: :system do
   describe 'list display function' do
     context 'When transitioning to the list screen' do
       it 'already created tasks list should be displayed' do
-        step2
         expect(page).to have_content 'content test 3'
 
         expect(page).to have_content 'test2'

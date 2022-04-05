@@ -1,28 +1,42 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
-
+   PER = 8
   def show
   end
 
   def edit
   end
 
-def index
-    @tasks = Task.all.order(created_at: :desc)
-  if params[:sort_priority]
-    @tasks = Task.all.order(priority: :desc)
-  else
-    @tasks = Task.all.order(duedate: :desc)
-  end
-end
-  def new
-    if params[:back]
-      @task = Task.new(task_params)
-    else
-      @task = Task.new
+  def index
+      if params[:title].blank? && params[:status].blank?
+        @tasks = Task.page(params[:page]).per(PER)
+        if params[:duedate].blank? && params[:sort_priority].blank?
+          @tasks = @tasks.order(created_at: :desc)
+        elsif params[:duedate].blank?
+          @tasks = @tasks.order(priority: :asc)
+        else
+          @tasks = @tasks.order(expired_at: :desc)
+        end
+      elsif params[:title].blank?
+        @tasks = Task.where('title LIKE ? AND status LIKE ?', "%#{params[:title]}%", "%#{params[:status]}%" )
+        flash[:notice] = " search result for '#{params[:status] }' "
+      elsif params[:status].blank?
+         @tasks = Task.where('title LIKE ?', "%#{params[:title]}%")
+        flash[:notice] = "search result for '#{params[:title]}' "
+      else
+        @tasks = Task.where('title LIKE ? AND status LIKE ?', "%#{params[:title]}%", "%#{params[:status]}%" )
+        flash[:notice] = "search result for '#{params[:status]}' and '#{params[:title]}' "
+      end
     end
-end
 
+  def new
+     if params[:back]
+       @task = Task.new(task_params)
+       @task.duedate = Date.today
+     else
+       @task = Task.new
+     end
+   end
 
   def create
     @task = Task.new(task_params)
@@ -55,12 +69,14 @@ end
     redirect_to tasks_path
   end
 
-  private
 
+  private
   def set_task
     @task = Task.find(params[:id])
   end
-
+  def task_search_params
+     params.fetch(:search, {}).permit(:title, :status )
+   end
   def task_params
     params.require(:task).permit(:title, :content, :duedate, :priority, :status, :id)
   end
