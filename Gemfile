@@ -8,7 +8,11 @@ gem 'pg', '1.3.4'
 gem 'puma', '~> 4.1'
 gem 'sass-rails', '>= 6'
 gem 'webpacker', '~> 5.0'
+gem 'uglifier', '>= 1.3.0'
+gem 'coffee-rails', '~> 4.2'
 gem 'turbolinks', '~> 5'
+gem 'kaminari'
+gem 'ransack'
 
 gem 'jbuilder', '~> 2.7'
 gem 'bootsnap', '>= 1.4.2', require: false
