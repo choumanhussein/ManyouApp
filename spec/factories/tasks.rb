@@ -2,6 +2,7 @@ FactoryBot.define do
   factory :task do
     title { 'title test' }
     content { 'content test 1' }
+    duedate{ '2022-03-30 20:00:00' }
   end
 
   factory :second_task, class: Task do
