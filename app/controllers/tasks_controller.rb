@@ -18,13 +18,13 @@ class TasksController < ApplicationController
           @tasks = @tasks.order(expired_at: :desc)
         end
       elsif params[:title].blank?
-        @tasks = Task.where('title LIKE ? AND status LIKE ?', "%#{params[:title]}%", "%#{params[:status]}%" )
+        @tasks = Task.page(params[:page]).per(PER).where('title LIKE ? AND status LIKE ?', "%#{params[:title]}%", "%#{params[:status]}%" )
         flash[:notice] = " search result for '#{params[:status] }' "
       elsif params[:status].blank?
-         @tasks = Task.where('title LIKE ?', "%#{params[:title]}%")
+         @tasks = Task.page(params[:page]).per(PER).where('title LIKE ?', "%#{params[:title]}%")
         flash[:notice] = "search result for '#{params[:title]}' "
       else
-        @tasks = Task.where('title LIKE ? AND status LIKE ?', "%#{params[:title]}%", "%#{params[:status]}%" )
+        @tasks = Task.page(params[:page]).per(PER).where('title LIKE ? AND status LIKE ?', "%#{params[:title]}%", "%#{params[:status]}%" )
         flash[:notice] = "search result for '#{params[:status]}' and '#{params[:title]}' "
       end
     end
