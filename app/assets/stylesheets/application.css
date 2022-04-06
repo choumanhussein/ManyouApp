@@ -14,3 +14,33 @@
  *= require_tree .
  *= require_self
  */
+ #error_explanation {
+   width: 450px;
+   border: 2px solid red;
+   padding: 7px 7px 0;
+   margin-bottom: 20px;
+   background-color: #f0f0f0;
+ }
+
+ .signup_box {
+   width:355px;
+   background-color: white;
+   border: 1px solid #DBDBDB;
+   border-radius: 3px;
+   margin: 30px auto 0 auto;
+   padding:20px 30px;
+ }
+
+ .login_forms {
+   text-align: center;
+   justify-content: center;
+ }
+
+ .login_box_mini {
+   width:355px;
+   background-color: white;
+   border: 1px solid #DBDBDB;
+   margin: 14px auto;
+   padding:20px 30px 20px 39px;
+   text-align: center;
+ }

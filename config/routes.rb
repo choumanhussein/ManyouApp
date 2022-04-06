@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
-  get 'users/new'
-  get 'users/show'
-  root 'tasks#index'
+  root 'users#new'
   resources :tasks
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  resources :users
 end

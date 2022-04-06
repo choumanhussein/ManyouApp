@@ -1,2 +1,29 @@
-<h1>Users#new</h1>
-<p>Find me in app/views/users/new.html.erb</p>
+<% if @user.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@user.errors.count, "error") %> prohibited this @user from being saved</h2>
+    <ul>
+    <% @user.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<div class="signup_box">
+  <p>Enregistrez Vous !<br></p>
+  <div class="login_forms">
+    <%= form_with(model: @user, local: true) do |f| %>
+      <%= f.label :name, 'Nom Du Compte:' %>
+      <p><%= f.text_field :name %><br></p>
+      <%= f.label :email, 'E-mail Adress:' %>
+      <p><%= f.email_field :email %><br></p>
+      <%= f.label :password, 'Mot de passe :' %>
+      <p><%= f.password_field :password %><br></p>
+      <%= f.label :password_confirmation, 'Mot de passe (confirmation) :' %>
+      <p><%= f.password_field :password_confirmation %></p>
+      <br>
+      <br>
+      <p><%= f.submit "Créer un compte" %></p>
+    <% end %>
+  </div>
+</div>
