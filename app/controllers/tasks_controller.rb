@@ -11,6 +11,17 @@ class TasksController < ApplicationController
   end
 
   def index
+    if logged_in?
+   @tasks = Task.where(user_id: current_user.id)
+   if params[:name].blank? && params[:status].blank?
+     @tasks = @tasks.page(params[:page]).per(PER)
+     if params[:sort_expired].blank? && params[:sort_priority].blank?
+       @tasks = @tasks.order(created_at: :desc)
+     elsif params[:sort_expired].blank?
+       @tasks = @tasks.order(priority: :asc)
+     else
+       @tasks = @tasks.order(expired_at: :desc)
+     end
       if params[:title].blank? && params[:status].blank?
         @tasks = Task.page(params[:page]).per(PER)
         if params[:duedate].blank? && params[:sort_priority].blank?
@@ -22,15 +33,22 @@ class TasksController < ApplicationController
         end
       elsif params[:title].blank?
         @tasks = Task.page(params[:page]).per(PER).where('title LIKE ? AND status LIKE ?', "%#{params[:title]}%", "%#{params[:status]}%" )
+        @tasks = @tasks.where(user_id: current_user.id)
         flash[:notice] = " search result for '#{params[:status] }' "
       elsif params[:status].blank?
          @tasks = Task.page(params[:page]).per(PER).where('title LIKE ?', "%#{params[:title]}%")
+         @tasks = @tasks.where(user_id: current_user.id)
         flash[:notice] = "search result for '#{params[:title]}' "
       else
         @tasks = Task.page(params[:page]).per(PER).where('title LIKE ? AND status LIKE ?', "%#{params[:title]}%", "%#{params[:status]}%" )
+        @tasks = @tasks.where(user_id: current_user.id)
         flash[:notice] = "search result for '#{params[:status]}' and '#{params[:title]}' "
       end
+    else
+   redirect_to sessions_new_path
+ end
     end
+  end
 
   def new
      if params[:back]
