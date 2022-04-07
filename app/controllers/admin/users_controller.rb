@@ -1,15 +1,10 @@
 class Admin::UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_action :current_user
   before_action :admin_necessary
-  def _form
-  end
-
-  def edit
-  end
+  PER = 8
 
   def index
-    @users = User.select(:id, :name, :email, :admin).order(created_at: :asc)
+    @users = User.select(:id, :name, :email, :admin).order(created_at: :asc).page(params[:page]).per(PER)
   end
 
   def new
@@ -17,35 +12,40 @@ class Admin::UsersController < ApplicationController
   end
 
   def create
-   @user = User.new(user_params)
-   if @user.save
-     redirect_to admin_users_path(@user.id)
-   else
-     flash.now[:danger] = "User registration failed"
-     render :new
-   end
- end
+    @user = User.new(user_params)
+    if @user.save
+      flash[:success] = "new user added"
+      redirect_to admin_users_path(@user.id)
+    else
+      flash.now[:danger] = "User registration failed"
+      render :new
+    end
+  end
 
   def show
-    @tasks = Task.where(user_id: @user.id)
+    @tasks = Task.where(user_id: @user.id).page(params[:page]).per(PER)
   end
+
+  def edit
+  end
+
   def update
-     puts @user
+    puts @user
     if @user.update(user_params)
       flash[:success] = "update successful"
-      redirect_to admin_user_path
+      redirect_to admin_user_path(@user)
     else
       flash.now[:danger] = "update failed"
       render :edit
-      @user = User.find(params[:id])
     end
   end
 
   def destroy
     if @user.destroy
-      flash[:info] = "#{@user.name} deleted"
+      flash[:success] = "user deleted!"
       redirect_to admin_users_path
     else
+      flash[:danger] = "user not deleted"
       redirect_to admin_users_path
     end
   end
@@ -56,13 +56,12 @@ class Admin::UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
-
   def admin_necessary
     unless current_user.admin?
-      flash[:notice] = "Admins Only !！"
-      redirect_to root_path
+      flash[:danger] = "only for admins！"
     end
   end
+
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation, :admin)
   end

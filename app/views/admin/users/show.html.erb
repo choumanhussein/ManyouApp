@@ -1,4 +1,5 @@
 <h1 class = "center"><%= @user.name %>'s page</h1>
+<div class="adm">
 <div class ="col-md-6">
   <table class="user_show_table  clearfix">
     <thead>
@@ -22,12 +23,15 @@
         <th>User admin priviledges</th>
         <td><%= @user.admin? ? "Yes":"No" %></td>
       </tr>
+        <td>Return to User Management <%= link_to 'Back', admin_users_path, class: 'btn btn-primary btn-lg' %>
+      </td>
     </thead>
   </table>
 </div>
-
+<br>
 <hr>
-
+<br>
+<div class ="text-right">
 <table class="table table-striped">
   <thead>
     <tr>
@@ -36,6 +40,7 @@
       <th>Duedate</th>
       <th>Status</th>
       <th>Priority</th>
+      <th>Label</th>
     </tr>
   </thead>
   <tbody>
@@ -43,12 +48,18 @@
       <tr>
         <td><%= task.title %></td>
         <td><%= task.content %></td>
-        <td><%= task.duedate %></td>
+        <td><%= task.duedate.strftime('%Y/%-m/%-d') %></td>
         <td><%= task.status %></td>
         <td><%= task.priority %></td>
+        <td>
+          <% task.labels.each do |label| %>
+            <%= label.name %>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<%= link_to 'Return', admin_users_path %>
+</div>
+</div>
+<br>
