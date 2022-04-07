@@ -10,9 +10,20 @@
   </head>
 
   <body>
-    <% flash.each do |message_type, message| %>
-   <%= message %>
-   <% end %>
-    <%= yield %>
+    <nav class="navbar navbar-light" style="background-color: #ffece6;">
+      <% flash.each do |key, value| %>
+          <%= content_tag(:div, value, class: "#{key}") %>
+        <% end %>
+
+        <% if logged_in? %>
+          <%= link_to "Profile", user_path(current_user.id), class:"btn btn-primary" %>
+          <%= link_to "Logout", session_path(current_user.id), method: :delete, class:"btn btn-primary" %>
+        <% else %>
+          <%= link_to "Registration", new_user_path, class:"btn btn-primary" %>
+          <%= link_to "Login", new_session_path, class:"btn btn-primary" %>
+        <% end %>
+</nav>
+
+      <%= yield %>
   </body>
 </html>

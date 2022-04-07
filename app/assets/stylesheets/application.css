@@ -14,6 +14,10 @@
  *= require_tree .
  *= require_self
  */
+ body{
+background-image: url('https://mdbootstrap.com/img/Photos/Others/images/76.jpg');
+            height: 100vh;
+}
  #error_explanation {
    width: 450px;
    border: 2px solid red;
@@ -29,6 +33,7 @@
    border-radius: 3px;
    margin: 30px auto 0 auto;
    padding:20px 30px;
+   background-image: url('https://mdbootstrap.com/img/Photos/Others/images/76.jpg');
  }
 
  .login_forms {

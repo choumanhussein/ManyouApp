@@ -12,3 +12,13 @@
                email: email,
                password: password,
                )
+
+
+
+BCEF 4
+BDE 3
+BED 3
+ABEF 3
+CDE 2
+ABC 3
+AEF 1

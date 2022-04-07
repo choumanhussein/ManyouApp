@@ -10,6 +10,7 @@
 <% end %>
 
 <div class="signup_box">
+  <div class="bg-image">
   <p>Enregistrez Vous !<br></p>
   <div class="login_forms">
     <%= form_with(model: @user, local: true) do |f| %>
@@ -25,5 +26,6 @@
       <br>
       <p><%= f.submit "Créer un compte" %></p>
     <% end %>
+  </div>
   </div>
 </div>
