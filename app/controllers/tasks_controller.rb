@@ -67,20 +67,20 @@ class TasksController < ApplicationController
      end
    end
 
-  def create
-    @task = current_user.tasks.build(task_params)
-    if params[:back]
-      render :new
-    else
-      if @task.save
-        flash[:success] = 'Task created'
-        redirect_to tasks_path
-      else
-        flash.now[:danger] = 'Task cannot be created'
-        render :new
-      end
-    end
-  end
+   def create
+   @task = current_user.tasks.build(task_params)
+   if params[:back]
+     render :new
+   else
+     if @task.save
+       flash[:success] = 'Task created !'
+       redirect_to task_path(@task.id)
+     else
+       flash.now[:danger] = 'Task cannot be created !'
+       render :new
+     end
+   end
+ end
 
   def update
       if @task.update(task_params)
