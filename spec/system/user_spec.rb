@@ -94,7 +94,6 @@ RSpec.describe 'User registration/login/logout function', type: :system do
         fill_in "session_email", with: "huss1@gmail.com"
         fill_in "session_password", with: "12345678"
         click_button 'login'
-        click_on 'Admin'
         click_link 'Create user'
         expect(page).to have_content "Register"
       end
