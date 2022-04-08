@@ -23,7 +23,7 @@
         <th>User admin priviledges</th>
         <td><%= @user.admin? ? "Yes":"No" %></td>
       </tr>
-        <td>Return to User Management <%= link_to 'Back', admin_users_path, class: 'btn btn-primary btn-lg' %>
+        <td><%= link_to 'Back', admin_users_path, class: 'btn btn-primary btn-lg' %>
       </td>
     </thead>
   </table>
@@ -40,7 +40,6 @@
       <th>Duedate</th>
       <th>Status</th>
       <th>Priority</th>
-      <th>Label</th>
     </tr>
   </thead>
   <tbody>
@@ -51,11 +50,6 @@
         <td><%= task.duedate.strftime('%Y/%-m/%-d') %></td>
         <td><%= task.status %></td>
         <td><%= task.priority %></td>
-        <td>
-          <% task.labels.each do |label| %>
-            <%= label.name %>
-          <% end %>
-        </td>
       </tr>
     <% end %>
   </tbody>

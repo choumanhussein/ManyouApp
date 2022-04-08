@@ -59,6 +59,7 @@ class Admin::UsersController < ApplicationController
   def admin_necessary
     unless current_user.admin?
       flash[:danger] = "only for admins！"
+      redirect_to tasks_path
     end
   end
 
