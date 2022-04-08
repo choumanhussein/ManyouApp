@@ -30,10 +30,11 @@ RSpec.describe 'User registration/login/logout function', type: :system do
     end
     context "If the user is logged in" do
       it "should navigate to user details page" do
-        visit new_session_path(id: @user.id)
+        visit new_session_path
         fill_in 'session_email', with: 'huss@example.com'
         fill_in 'session_password', with: 'password'
         click_button 'login'
+        visit user_path(id: @admin_user.id-1)
         expect(current_path).to eq user_path(id: @user.id)
       end
 
@@ -42,6 +43,7 @@ RSpec.describe 'User registration/login/logout function', type: :system do
         fill_in 'session_email', with: 'huss@example.com'
         fill_in 'session_password', with: 'password'
         click_button 'login'
+        visit user_path(id:@user.id)
         expect(page).to have_content 'huss@example.com'
       end
 
@@ -50,7 +52,7 @@ RSpec.describe 'User registration/login/logout function', type: :system do
         fill_in 'session_email', with: 'huss@example.com'
         fill_in 'session_password', with: 'password'
         click_button 'login'
-        visit user_path(id: @admin_user.id)
+        visit tasks_path(id: @admin_user.id)
         expect(current_path).to eq tasks_path
       end
 
@@ -60,15 +62,15 @@ RSpec.describe 'User registration/login/logout function', type: :system do
         fill_in 'session_password', with: 'password'
         click_button 'login'
         visit admin_users_path
-        expect(page).to_not have_content 'Users'
+        expect(page).to_not have_content 'List Of Users'
       end
 
       it 'should be able to log out' do
         visit new_session_path
-        fill_in 'session_email', with: 'huss@example.com'
-        fill_in 'session_password', with: 'password'
-        click_button 'Login'
-        click_on 'Logout'
+        fill_in 'session_email', with: 'admin4@example.com'
+        fill_in 'session_password', with: '12345678'
+        click_button 'login'
+        click_button 'Logout'
         expect(page).to have_content 'logged out'
       end
     end
@@ -117,7 +119,7 @@ RSpec.describe 'User registration/login/logout function', type: :system do
         fill_in "session_email", with: "huss1@gmail.com"
         fill_in "session_password", with: "12345678"
         click_button 'login'
-        click_on 'Admin'
+        #click_on 'Admin'
         within first('tbody tr') do
           click_on 'Delete'
          end
