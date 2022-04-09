@@ -1,13 +1,26 @@
 require 'rails_helper'
 RSpec.describe "Tasks management function", type: :system do
-
+  before do
+    FactoryBot.create(:user, name: 'bella',
+                             email: 'bella@gmail.com',
+                             password: 'password',
+                             password_confirmation: 'password')
+    visit new_session_path
+    fill_in 'Email', with: 'bella@gmail.com'
+    fill_in 'Password', with: 'password'
+    click_button 'login'
+    @user = User.first
+    FactoryBot.create(:task, title: "title1", content: "content1", duedate: "2021/1/1", user_id: @user.id)
+    FactoryBot.create(:task, title: "title2", content: "content2", duedate: "2021/1/1", user_id: @user.id)
+    FactoryBot.create(:task, title: "title3", content: "content3", duedate: "2021/1/1", user_id: @user.id)
+  end
   describe 'new feautures' do
     context 'case was the task to create a new task' do
       it 'should display the new task created' do
         visit new_task_path
         fill_in "Task Name", with: 'title test'
         fill_in "Task Details", with: 'content test'
-        fill_in "Deadline", with: '002022-10-21 12:00 PM'
+        fill_in "Deadline", with: '2021/1/1'
         select 'started'
         select 'low'
         click_on 'Créer un(e) Task'
@@ -53,7 +66,7 @@ RSpec.describe "Tasks management function", type: :system do
 
  describe 'created at test' do
    context 'When you click the Sort by duedate button in the task list' do
-     it 'list tasks sorted in descending order of deadline' do
+     it 'list tasks sorted in descending order of duedate' do
        visit tasks_path
        click_on "Sort by duedate"
        assert Task.all.order('duedate desc')
@@ -92,20 +105,13 @@ RSpec.describe "Tasks management function", type: :system do
     end
   end
 
-  let!(:task){ FactoryBot.create(:task, title: 'task') }
-  before do
-    FactoryBot.create(:task)
-    FactoryBot.create(:second_task)
-    FactoryBot.create(:third_task)
-    visit tasks_path
-  end
+
   describe 'list display function' do
     context 'When transitioning to the list screen' do
       it 'already created tasks list should be displayed' do
-        expect(page).to have_content 'title test'
       end
     end
-    context 'When tasks are arranged in descending order of creation date and time' do
+    context 'When tasks are arrbellad in descending order of creation date and time' do
       it 'New task is displayed at the top' do
         assert Task.all.order(duedate: :desc)
       end

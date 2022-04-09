@@ -1,5 +1,8 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :current_user
+  before_action :authenticate_user
+  before_action :logged_in?
    PER = 8
   def show
   end
@@ -8,25 +11,37 @@ class TasksController < ApplicationController
   end
 
   def index
-      if params[:title].blank? && params[:status].blank?
-        @tasks = Task.page(params[:page]).per(PER)
-        if params[:duedate].blank? && params[:sort_priority].blank?
-          @tasks = @tasks.order(created_at: :desc)
-        elsif params[:duedate].blank?
-          @tasks = @tasks.order(priority: :asc)
-        else
-          @tasks = @tasks.order(expired_at: :desc)
-        end
+    if logged_in?
+   @tasks = Task.where(user_id: current_user.id)
+   if params[:title].blank? && params[:status].blank?
+     @tasks = @tasks.page(params[:page]).per(PER)
+     @tasks = @tasks.where(user_id: current_user.id)
+     if params[:sort_expired].blank? && params[:sort_priority].blank?
+       @tasks = @tasks.order(created_at: :desc)
+       @tasks = @tasks.where(user_id: current_user.id)
+     elsif params[:sort_expired].blank?
+       @tasks = @tasks.order(priority: :asc)
+       @tasks = @tasks.where(user_id: current_user.id)
+     else
+       @tasks = @tasks.order(expired_at: :desc)
+       @tasks = @tasks.where(user_id: current_user.id)
+     end
       elsif params[:title].blank?
-        @tasks = Task.page(params[:page]).per(PER).where('title LIKE ? AND status LIKE ?', "%#{params[:title]}%", "%#{params[:status]}%" )
+        @tasks = Task.page(params[:page]).per(PER).where('status LIKE ?', "%#{params[:status]}%" )
+        @tasks = @tasks.where(user_id: current_user.id)
         flash[:notice] = " search result for '#{params[:status] }' "
       elsif params[:status].blank?
          @tasks = Task.page(params[:page]).per(PER).where('title LIKE ?', "%#{params[:title]}%")
+         @tasks = @tasks.where(user_id: current_user.id)
         flash[:notice] = "search result for '#{params[:title]}' "
       else
         @tasks = Task.page(params[:page]).per(PER).where('title LIKE ? AND status LIKE ?', "%#{params[:title]}%", "%#{params[:status]}%" )
-        flash[:notice] = "search result for '#{params[:status]}' and '#{params[:title]}' "
+        @tasks = @tasks.where(user_id: current_user.id)
+        flash[:notice] = "search result for '#{params[:title]}' and '#{params[:status]}' "
       end
+    else
+   redirect_to sessions_new_path
+ end
     end
 
   def new
@@ -38,20 +53,20 @@ class TasksController < ApplicationController
      end
    end
 
-  def create
-    @task = Task.new(task_params)
-    if params[:back]
-      render :new
-    else
-      if @task.save
-        flash[:success] = 'Task created'
-        redirect_to tasks_path
-      else
-        flash.now[:danger] = 'Task cannot be created'
-        render :new
-      end
-    end
-  end
+   def create
+   @task = current_user.tasks.build(task_params)
+   if params[:back]
+     render :new
+   else
+     if @task.save
+       redirect_to tasks_path
+       flash[:success] =  "User " + current_user.name + " has created a task !"
+     else
+       flash.now[:danger] = 'Task cannot be created !'
+       render :new
+     end
+   end
+ end
 
   def update
       if @task.update(task_params)
@@ -65,14 +80,14 @@ class TasksController < ApplicationController
 
   def destroy
     @task.destroy
-    flash[:success] = 'Task deleted'
+    flash[:success] = 'Task deleted !'
     redirect_to tasks_path
   end
 
 
   private
   def set_task
-    @task = Task.find(params[:id])
+    @task = current_user.tasks.find(params[:id])
   end
   def task_search_params
      params.fetch(:search, {}).permit(:title, :status )
