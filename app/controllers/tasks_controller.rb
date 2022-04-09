@@ -73,8 +73,8 @@ class TasksController < ApplicationController
      render :new
    else
      if @task.save
-       flash[:success] = 'Task created !'
-       redirect_to task_path(@task.id)
+       redirect_to tasks_path
+       flash[:success] =  "User " + current_user.name + " has created a task !"
      else
        flash.now[:danger] = 'Task cannot be created !'
        render :new
