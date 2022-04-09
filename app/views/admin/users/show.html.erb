@@ -1,0 +1,59 @@
+<h1 class = "center"><%= @user.name %>'s page</h1>
+<div class="adm">
+<div class ="col-md-6">
+  <table class="user_show_table  clearfix">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <td><%= @user.id %></td>
+      </tr>
+      <tr>
+        <th>Username</th>
+        <td><%= @user.name%></td>
+      </tr>
+      <tr>
+        <th>Email</th>
+        <td><%= @user.email %></td>
+      </tr>
+      <tr>
+        <th>No. of tasks</th>
+        <td><%= @user.tasks.count %></td>
+      </tr>
+      <tr>
+        <th>User admin priviledges</th>
+        <td><%= @user.admin? ? "Yes":"No" %></td>
+      </tr>
+        <td><%= link_to 'Back', admin_users_path, class: 'btn btn-primary btn-lg' %>
+      </td>
+    </thead>
+  </table>
+</div>
+<br>
+<hr>
+<br>
+<div class ="text-right">
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Content</th>
+      <th>Duedate</th>
+      <th>Status</th>
+      <th>Priority</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @tasks.each do |task| %>
+      <tr>
+        <td><%= task.title %></td>
+        <td><%= task.content %></td>
+        <td><%= task.duedate.strftime('%Y/%-m/%-d') %></td>
+        <td><%= task.status %></td>
+        <td><%= task.priority %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+</div>
+<br>

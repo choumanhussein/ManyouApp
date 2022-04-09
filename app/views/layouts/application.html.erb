@@ -4,15 +4,30 @@
     <title>ManyouApp</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-
   <body>
-    <% flash.each do |message_type, message| %>
-   <%= message %>
-   <% end %>
-    <%= yield %>
+    <nav class="navbar navbar-dark">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <div class="navbar-toggle collapsed" data-toggle="collapse">
+      <% flash.each do |key, value| %>
+          <%= content_tag(:div, value, class: "#{key}") %>
+          <%end%>
+        <% if logged_in? %>
+             <%= link_to "My profile", user_path(current_user.id), class:"btn btn-warning btn-lg"  %>
+            <%= link_to "All Tasks", tasks_path, class:"btn btn-success btn-lg"  %>
+             <% if current_user.admin? %>
+              <%= link_to "Admin", admin_users_path, class:"btn btn-primary btn-lg" %>
+             <% end %>
+            <%= button_to "Logout", session_path(current_user.id), :method=>:delete, :class=>:destroy, class:"btn btn-danger btn-lg" %>
+         <% else %>
+            <%= link_to "Login", new_session_path, class:"btn btn-warning btn-lg" %>
+          <%= link_to "Join", new_user_path, class:"btn btn-primary btn-lg" %>
+         <% end %>
+
+</nav>
+      <%= yield %>
   </body>
 </html>
