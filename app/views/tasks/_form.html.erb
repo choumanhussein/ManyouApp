@@ -18,6 +18,7 @@
     <%= form.date_field :duedate, placeholder: 'Deadline' %>
     <%= form.select :status, ['pending','started','completed'], placeholder: 'Status' %>
     <%= form.select :priority,['low','medium','high'], placeholder: 'Priority' %>
+    <%= form.collection_check_boxes(:label_ids, @labels, :id, :name) %>
     <%= form.submit %>
     </p>
   </div>

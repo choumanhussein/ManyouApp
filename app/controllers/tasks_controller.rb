@@ -3,6 +3,7 @@ class TasksController < ApplicationController
   before_action :current_user
   before_action :authenticate_user
   before_action :logged_in?
+  before_action :set_labels, only: [:new, :create, :edit, :update]
    PER = 8
   def show
   end
@@ -13,6 +14,7 @@ class TasksController < ApplicationController
   def index
     if logged_in?
    @tasks = Task.where(user_id: current_user.id)
+   @tasks = @tasks.joins(:labels).where(labels: { id: params[:label_id] }) if params[:label_id].present?
    if params[:title].blank? && params[:status].blank?
      @tasks = @tasks.page(params[:page]).per(PER)
      @tasks = @tasks.where(user_id: current_user.id)
@@ -69,6 +71,7 @@ class TasksController < ApplicationController
  end
 
   def update
+    task.tasklabels.delete_all unless params[:task][:label_ids]
       if @task.update(task_params)
         flash[:success] = 'Task updated'
         redirect_to tasks_path
@@ -78,6 +81,8 @@ class TasksController < ApplicationController
       end
     end
 
+
+
   def destroy
     @task.destroy
     flash[:success] = 'Task deleted !'
@@ -86,13 +91,18 @@ class TasksController < ApplicationController
 
 
   private
+
+  def set_labels
+     @labels = Label.all
+  end
+
   def set_task
     @task = current_user.tasks.find(params[:id])
   end
   def task_search_params
-     params.fetch(:search, {}).permit(:title, :status )
+     params.fetch(:search, {}).permit(:title, :status, :label_id )
    end
   def task_params
-    params.require(:task).permit(:title, :content, :duedate, :priority, :status, :id)
+    params.require(:task).permit(:title, :content, :duedate, :priority, :status, :id, label_ids:[])
   end
 end
