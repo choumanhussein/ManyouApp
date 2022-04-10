@@ -8,9 +8,7 @@
             <%= form.label :title, "title" %>
             <%= form.text_field :title %>
             <%= form.select :status, ['', 'pending', 'started', 'completed'], {} %>
-            <% Label.all.each do |label| %>
-            <%= label.name %>:<%= form.check_box :labels, { multiple: true, checked: label[:checked], disabled: label[:disabled], include_hidden: false }, label[:id] %>
-            <% end %>
+            <%= form.select("label_id", Label.pluck(:name, :id), { include_blank: true }) %>
             <%= form.hidden_field :search, value: 'true' %>
             <%= form.hidden_field :search, value: 'true' %>
             <%= form.submit "search" %>

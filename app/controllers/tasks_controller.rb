@@ -28,10 +28,10 @@ class TasksController < ApplicationController
        @tasks = @tasks.order(expired_at: :desc)
        @tasks = @tasks.where(user_id: current_user.id)
      end
-      elsif params[:title].blank?
-        @tasks = Task.page(params[:page]).per(PER).where('status LIKE ?', "%#{params[:status]}%" )
-        @tasks = @tasks.where(user_id: current_user.id)
-        flash[:notice] = " search result for '#{params[:status] }' "
+   elsif params[:title].blank?
+     @tasks = Task.page(params[:page]).per(PER).where('status LIKE ?', "%#{params[:status]}%" )
+     @tasks = @tasks.where(user_id: current_user.id)
+     flash[:notice] = " search result for '#{params[:status] }' "
       elsif params[:status].blank?
          @tasks = Task.page(params[:page]).per(PER).where('title LIKE ?', "%#{params[:title]}%")
          @tasks = @tasks.where(user_id: current_user.id)
