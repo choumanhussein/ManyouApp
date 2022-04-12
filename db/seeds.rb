@@ -5,6 +5,21 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+require 'faker'
+label = [
+  { name: 'First' },
+  { name: 'Second' },
+  { name: 'Third' },
+  { name: 'Forth' },
+  { name: 'Fifth' },
+  { name: 'Six' },
+  { name: 'Seven' },
+  { name: 'Eight' },
+  { name: 'Nine' },
+  { name: 'Ten' },
+]
+Label.create! label
+10.times do |n|
   name = Faker::Games::Pokemon.name
   email = Faker::Internet.email
   password = "password"
@@ -12,3 +27,4 @@
                email: email,
                password: password,
                )
+end

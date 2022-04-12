@@ -13,6 +13,7 @@ gem 'coffee-rails', '~> 4.2'
 gem 'turbolinks', '~> 5'
 gem 'kaminari'
 gem 'ransack'
+gem 'faker'
 gem 'bcrypt', '3.1.16'
 
 

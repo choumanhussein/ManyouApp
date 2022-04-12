@@ -49,6 +49,7 @@ background-image: url('https://mdbootstrap.com/img/Photos/Others/images/76.jpg')
    padding:20px 30px 20px 39px;
    text-align: center;
  }
+
 .form-control1 {
   display: block;
   /* width: 100%; */
@@ -58,6 +59,41 @@ background-image: url('https://mdbootstrap.com/img/Photos/Others/images/76.jpg')
   line-height: 1.5;
   color: #212529;
 }
+
  a{
    text-decoration: none;
  }
+
+/* .loader-wrapper{
+   width: 60px;
+   height: 60px;
+ }
+
+ .loader{
+   box-sizing: border-box;
+   width: 100%;
+   height:100%;
+   border: 10px solid black;
+   border-top-color:blue;
+   border-bottom-color: red;
+   border-radius: 50%;
+   animation: rotate 5s linear infinite;
+ }
+
+ .loader-inner{
+   border-to-color: grey;
+   border-bottom-color: white;
+   animation-duration: 2.5s;
+ }
+
+ @keyframes rotate {
+   0%{
+     transform: scale(1) rotate(360deg);
+   }
+   50%{
+     transform: scale(.8) rotate(-360deg);
+   }
+   100%{
+  transform: scale(1) rotate(360deg);
+}
+}*/
